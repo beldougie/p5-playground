@@ -14,4 +14,8 @@ router.get('/experiments/fractal-tree-1', function (req, res, next) {
   res.render('fractal-tree-1', { title: 'Fractal Tree 1' })
 });
 
+router.get('/experiments/maze-dfrb', function (req, res, next) {
+  res.render('maze-dfrb', { title: 'Maze Generator' });
+});
+
 module.exports = router;
