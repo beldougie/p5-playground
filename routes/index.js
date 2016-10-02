@@ -10,4 +10,8 @@ router.get('/experiments/terrain', function (req, res, next) {
   res.render('terrain', { title: 'Terrain' })
 });
 
+router.get('/experiments/fractal-tree-1', function (req, res, next) {
+  res.render('fractal-tree-1', { title: 'Fractal Tree 1' })
+});
+
 module.exports = router;
