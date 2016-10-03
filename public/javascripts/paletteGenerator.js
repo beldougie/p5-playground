@@ -9,9 +9,25 @@ class PaletteGenerator {
     this.palette = [];
     this.roots = roots;
     this.mods = modifiers;
+    console.log(this.roots, this.mods);
   }
 
-  generate() {
+  generateHSB(num_colors) {
+
+    for(let i = 0; i < 360; i += 360 / num_colors) {
+      let color = {
+        hue: i,
+        sat: 90 + floor(random() * 10),
+        lit: 50 + floor(random() * 10)
+      };
+      this.palette.push(color);
+    }
+    return this.palette;
+  }
+
+  generateRGB() {
+
+
     let rOffset = this.roots[0];
     let gOffset = this.roots[1];
     let bOffset = this.roots[2];
@@ -29,6 +45,6 @@ class PaletteGenerator {
         aOffset += this.mods[3];
       }
     }
-    return this.palette;
+    return this.palette
   }
 }

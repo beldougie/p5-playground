@@ -11,7 +11,7 @@ class Mandlebrot {
 
   init(maxIterations) {
     this.maxIterations = maxIterations || 100;
-    this.palette = new PaletteGenerator().generate();
+    this.palette = new PaletteGenerator().generateRGB();
   }
 
   setPixel(pixIdx, rVal, gVal, bVal, aVal) {

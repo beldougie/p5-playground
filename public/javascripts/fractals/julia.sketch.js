@@ -4,16 +4,18 @@ let palette = [];
 let maxIterations = 50;
 
 function setup() {
-  createCanvas(400, 400);
+  let cnv = createCanvas(500, 300);
+  cnv.mouseReleased(draw);
+  colorMode(HSB);
   pixelDensity(1);
   loadPixels();
-
-  palette = new PaletteGenerator().generate([24, 16, 12, 255], [5, 3, 2, -5]);
+  palette = new PaletteGenerator().generateHSB(256);
+  noLoop();
 }
 
 function draw() {
-  let ca = sin(angle * HALF_PI);
-  let cb = sin(map(angle, 0, 360, -20, 20));
+  let ca = map(mouseX, 0, width, -1, 1);
+  let cb = map(mouseY, 0, height, -1, 1);
   angle += 0.1;
 
   for(let x = 0; x < width; x++) {
@@ -35,9 +37,9 @@ function draw() {
       let color = pickColor(n);
       let pix = (x + y * width) * 4;
 
-      pixels[pix + 0] = color.r;
-      pixels[pix + 1] = color.g;
-      pixels[pix + 2] = color.b;
+      pixels[pix + 0] = color.hue;
+      pixels[pix + 1] = color.sat;
+      pixels[pix + 2] = color.lit;
       pixels[pix + 3] = 255;
     }
   }
@@ -48,8 +50,12 @@ function draw() {
 
 function pickColor(idx) {
   if(idx === maxIterations) {
-    return { r: 0, g: 0, b: 0 };
+    return { hue: 0, sat: 0, lit: 0 };
   } else {
-    return palette[floor((idx / (maxIterations - 1)) * 255)];
+    let truI = floor((idx / (maxIterations - 1)) * 255);
+    if(truI > palette.length) {
+      truI = palette.length - 1;
+    }
+    return palette[truI];
   }
 }
